@@ -1,0 +1,15 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: solar-system-3d
+  labels:
+    app: solar-system-3d
+spec:
+  to:
+    kind: Service
+    name: solar-system-3d
+  port:
+    targetPort: http
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect

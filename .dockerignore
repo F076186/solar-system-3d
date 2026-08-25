@@ -1,0 +1,15 @@
+node_modules
+.git
+.venv
+*.log
+.DS_Store
+.env
+src
+public
+k8s
+deploy.sh
+vite.config.js
+package*.json
+README.md
+DEPLOYMENT-CONTEXT.md
+index.html

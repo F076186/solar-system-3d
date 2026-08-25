@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: solar-system-3d
+  labels:
+    app: solar-system-3d
+    app.kubernetes.io/name: solar-system-3d
+    app.kubernetes.io/component: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: solar-system-3d
+  template:
+    metadata:
+      labels:
+        app: solar-system-3d
+    spec:
+      containers:
+        - name: solar-system-3d
+          image: image-registry.openshift-image-registry.svc:5000/solar-system/solar-system-3d:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "64Mi"
+            limits:
+              cpu: "500m"
+              memory: "256Mi"
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 15
+            periodSeconds: 30
+      securityContext:
+        runAsNonRoot: true
